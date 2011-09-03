@@ -75,6 +75,6 @@
     <g:textField name="phoneNumber" value="${addressInstance?.phoneNumber}"/>
 </div>
 
-<g:hiddenField name="officeId" value="${officeId}"/>
+<g:hiddenField name="officeId" value="${parent.id}"/>
 
 </fieldset>

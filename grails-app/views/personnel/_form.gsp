@@ -17,6 +17,11 @@
     <g:datePicker name="dob" precision="day" value="${personnelInstance?.dob}" />
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: personnelInstance, field: 'dob', 'error')}">
+    <label for="image"> <g:message code="personnel.image.label" default="Image" /></label>
+    <input name="picture" type="file" />
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: personnelInstance, field: 'nationalId', 'error')} ">
     <label for="nationalId"> <g:message code="personnel.nationalId.label" default="National Id" /> </label>
     <g:textField name="nationalId" value="${personnelInstance?.nationalId}" />
@@ -28,7 +33,11 @@
     <g:field type="number" name="locale" required=""
         value="${fieldValue(bean: personnelInstance, field: 'locale')}" />
 </div>
-
+<div class="fieldcontain ${hasErrors(bean: personnelInstance, field: 'email', 'error')} required">
+    <label for="email"> <g:message code="personnel.email.label" default="Email" /> <span
+        class="required-indicator">*</span> </label>
+    <g:field type="email" name="email" required="" value="${personnelInstance?.email}" />
+</div>
 <fieldset class="embedded">
     <legend>
         <g:message code="personnel.name.label" default="Name" />
@@ -49,7 +58,6 @@
         <label for="name.lastName"> <g:message code="personnel.name.lastName.label" default="Last Name" /> </label>
         <g:textField name="lastName" required="" value="${nameInstance?.lastName}" />
     </div>
-
 </fieldset>
 <fieldset class="embedded">
     <legend>
@@ -96,13 +104,9 @@
         <g:textField name="zip" value="${addressInstance?.zip}" />
     </div>
 </fieldset>
-<div class="fieldcontain ${hasErrors(bean: personnelInstance, field: 'email', 'error')} required">
-    <label for="email"> <g:message code="personnel.email.label" default="Email" /> <span
-        class="required-indicator">*</span> </label>
-    <g:field type="email" name="email" required="" value="${personnelInstance?.email}" />
-</div>
-
-
+<g:if test="{officeId}">
+    <g:hiddenField name="officeId" value="${officeId}"/>
+</g:if>
 <div class="fieldcontain ${hasErrors(bean: personnelInstance, field: 'personnelNotes', 'error')} ">
     <label for="personnelNotes"> <g:message code="personnel.personnelNotes.label" default="Personnel Notes" />
 

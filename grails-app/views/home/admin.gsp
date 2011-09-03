@@ -11,8 +11,7 @@ ul.adminOptions li {
 </style>
 <div id="displayContent">
     <ul id="adminOptions" class="adminOptions">
-        <li><g:link controller="office">Personnel</g:link></li>
-        <li><g:link controller="office">Offices</g:link></li>
+        <li><g:link controller="office">Manage Offices and Users</g:link></li>
         <li onclick="showSubOptions('fees')">Fees</li>
         <li>Funds</li>
         <li>Holidays</li>

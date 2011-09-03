@@ -31,5 +31,6 @@ class UrlMappings {
 		"500"(view:'/error')
 
         "/office/rest/$id?" (controller:"officeRest")
+        "/picture/$id?" (controller:"image", action:"image")
 	}
 }

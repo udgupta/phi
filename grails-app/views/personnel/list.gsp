@@ -11,28 +11,35 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+                <li>
+                    <g:link controller="office"> Go Back To Office List </g:link>
+                </li>
+				<li>
+                    <g:link class="create" action="create" params="[officeId:officeInstance.id]">
+                        Create <g:message code="default.new.label" args="[entityName]" /> in ${officeInstance.name}
+                    </g:link>
+                 </li>
                 <li><g:form action="search"><input type='search' name='q' placeholder='search personnel'/></g:form></li>
 			</ul>
 		</div>
 		<div id="list-personnel" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1><g:message code="default.list.label" args="[entityName]" /> in <i>${officeInstance.name}</i></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<table>
 				<thead>
 					<tr>
-						<g:sortableColumn property="username" title="${message(code: 'personnel.username.label', default: 'Username')}" />
+						<th><g:message code="personnel.username.label" default="Username" /></th>
 						<th><g:message code="personnel.name.first.label" default="First Name" /></th>
                         <th><g:message code="personnel.name.last.label" default="Last Name" /></th>
-						<g:sortableColumn property="email" title="${message(code: 'personnel.email.label', default: 'Email')}" />
-						<g:sortableColumn property="locale" title="${message(code: 'personnel.locale.label', default: 'Language')}" />
-                        <g:sortableColumn property="dob" title="${message(code: 'personnel.dob.label', default: 'Date of Birth')}" />
-                        <g:sortableColumn property="enabled" title="${message(code: 'personnel.enabled.label', default: 'Enabled')}" />
-                        <g:sortableColumn property="accountExpired" title="${message(code: 'personnel.accountExpired.label', default: 'Account Expired')}" />
-                        <g:sortableColumn property="accountLocked" title="${message(code: 'personnel.accountLocked.label', default: 'Locked')}" />
-                        <g:sortableColumn property="passwordExpired" title="${message(code: 'personnel.passwordExpired.label', default: 'Password Expired')}" />
+						<th><g:message code="personnel.email.label" default="Email" /></th>
+						<th><g:message code="personnel.locale.label" default="Language" /></th>
+                        <th><g:message code="personnel.dob.label" default="Date of Birth" /></th>
+                        <th><g:message code="personnel.enabled.label" default="Enabled" /></th>
+                        <th><g:message code="personnel.accountExpired.label" default="Account Expired" /></th>
+                        <th><g:message code="personnel.accountLocked.label" default="Locked" /></th>
+                        <th><g:message code="personnel.passwordExpired.label" default="Password Expired" /></th>
 					</tr>
 				</thead>
 				<tbody>

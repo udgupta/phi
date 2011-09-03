@@ -15,7 +15,7 @@
 			</ul>
 		</div>
 		<div id="create-office" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			<h1><g:message code="default.create.label" args="[entityName]" /> under <i>${parent.name}</i></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

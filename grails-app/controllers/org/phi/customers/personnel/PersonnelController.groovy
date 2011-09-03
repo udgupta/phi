@@ -21,24 +21,30 @@
 package org.phi.customers.personnel
 
 import org.phi.customers.Address
+import org.phi.customers.ImageContent
 import org.phi.customers.Name
 import org.phi.office.Office
 import org.springframework.dao.DataIntegrityViolationException
 
 class PersonnelController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST"]
 
     def index() {
-        redirect(action: "list", params: params)
+        redirect(action: "underOffice", params: params)
     }
 
-    def list() {
+    def underOffice() {
         if(!params.officeId){
             redirect(controller: "office", params: params)
         }
-        def plist = Office.findById(params.officeId).personnels
-        [personnelInstanceList: plist, personnelInstanceTotal: plist.size()]
+        def map = [:]
+        Office office = Office.findById(params.officeId)
+        def plist = office.personnels
+        map.put("personnelInstanceList", plist)
+        map.put("personnelInstanceTotal", plist.size())
+        map.put("officeInstance", office)
+        render(view: "list", model: map)
     }
 
     def search() {
@@ -57,6 +63,7 @@ class PersonnelController {
         if(!params.officeId){
             redirect(controller: "office", params: params)
         }
+
         map.put('officeId', params.officeId)
         map.put('personnelInstance', new Personnel(params))
         map.put('nameInstance', new Name(params))
@@ -65,11 +72,34 @@ class PersonnelController {
     }
 
     def save() {
+        if(!params.officeId){
+            redirect(action: "create", params: params)
+        }
+
         def personnelInstance = new Personnel(params)
         def nameInstance = new Name(params)
         def addressInstance = new Address(params)
         personnelInstance.name = nameInstance
         personnelInstance.address = addressInstance
+        personnelInstance.addToOffices(Office.findById(params.officeId))
+
+
+        def f = request.getPart('picture')
+        if(f) {
+            def okcontents = ['image/png', 'image/jpeg', 'image/gif']
+            if (! okcontents.contains(f.getContentType())) {
+                flash.message = "Image must be one of: ${okcontents}"
+                redirect(action: "create", params: params)
+                return
+            }
+
+            ImageContent image = new ImageContent()
+            image.content =  f.getBytes()
+            image.type = f.getContentType()
+            personnelInstance.image = image
+            log.info("File uploaded: " + image.type)
+        }
+
         if (!personnelInstance.save(flush: true)) {
             render(view: "create", model: [personnelInstance: personnelInstance])
             return
@@ -97,8 +127,11 @@ class PersonnelController {
             redirect(action: "list")
             return
         }
-
-        [personnelInstance: personnelInstance]
+        def map = [:]
+        map.put('personnelInstance', personnelInstance)
+        map.put('nameInstance', personnelInstance.name)
+        map.put('addressInstance', personnelInstance.address)
+        return map
     }
 
     def update() {
@@ -107,6 +140,23 @@ class PersonnelController {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'personnel.label', default: 'Personnel'), params.id])
             redirect(action: "list")
             return
+        }
+
+        def f = request.getFile('picture')
+        if(!f.empty) {
+            def okcontents = ['image/png', 'image/jpeg', 'image/gif']
+            if (! okcontents.contains(f.getContentType())) {
+                flash.message = "Image must be one of: ${okcontents}"
+                redirect(action: "create", params: params)
+                return
+            }
+
+            ImageContent image = new ImageContent()
+            image.content =  f.getBytes()
+            image.type = f.getContentType()
+            personnelInstance.image = image
+            image.save()
+            log.info("File uploaded: " + image.type)
         }
 
         if (params.version) {
@@ -129,24 +179,5 @@ class PersonnelController {
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'personnel.label', default: 'Personnel'), personnelInstance.id])
         redirect(action: "show", id: personnelInstance.id)
-    }
-
-    def delete() {
-        def personnelInstance = Personnel.get(params.id)
-        if (!personnelInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'personnel.label', default: 'Personnel'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            personnelInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'personnel.label', default: 'Personnel'), params.id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'personnel.label', default: 'Personnel'), params.id])
-            redirect(action: "show", id: params.id)
-        }
     }
 }

@@ -23,6 +23,7 @@ package org.phi.customers.personnel
 import java.util.Date
 
 import org.phi.customers.Address
+import org.phi.customers.ImageContent
 import org.phi.customers.Name
 import org.phi.office.Office
 import org.phi.security.User
@@ -36,6 +37,8 @@ class Personnel extends User {
     Name name
 
     Address address
+
+    ImageContent image
 
     static embedded = ['name', 'address']
 
@@ -54,6 +57,7 @@ class Personnel extends User {
     static constraints = {
         name nullable: true
         address nullable: true
+        image nullable: true
         email email: true, blank: false
     }
 }

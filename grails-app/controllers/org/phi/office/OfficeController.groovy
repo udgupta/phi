@@ -49,7 +49,8 @@ class OfficeController {
         if(!params.officeId){
             redirect(controller: "office", params: params)
         }
-        map.put('officeId', params.officeId)
+        Office parent = Office.findById(params.officeId)
+        map.put('parent', parent)
         map.put('officeInstance', new Office(params))
         map.put('addressInstance', new Address(params))
         return map

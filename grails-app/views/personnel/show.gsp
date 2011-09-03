@@ -11,14 +11,13 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-personnel" class="content scaffold-show" role="main">
 			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+			     <div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list personnel">
 				<g:if test="${personnelInstance?.username}">
@@ -27,24 +26,31 @@
 				     <span class="property-value" aria-labelledby="username-label"><g:fieldValue bean="${personnelInstance}" field="username"/></span>
 				</li>
 				</g:if>
-				<g:if test="${personnelInstance?.name?.firstName}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="personnel.name.firstName.label" default="First Name" /></span>
 					<span class="property-value" aria-labelledby="name-firstName-label"><g:fieldValue bean="${personnelInstance}" field="name.firstName"/></span>
 				</li>
-				</g:if>
                 <g:if test="${personnelInstance?.name?.middleName}">
                 <li class="fieldcontain">
                     <span id="name-label" class="property-label"><g:message code="personnel.name.middleName.label" default="Middle Name" /></span>
                     <span class="property-value" aria-labelledby="name-middleName-label"><g:fieldValue bean="${personnelInstance}" field="name.middleName"/></span>
                 </li>
                 </g:if>
-                <g:if test="${personnelInstance?.name?.lastName}">
                 <li class="fieldcontain">
                     <span id="name-label" class="property-label"><g:message code="personnel.name.lastName.label" default="Last Name" /></span>
                     <span class="property-value" aria-labelledby="name-lastName-label"><g:fieldValue bean="${personnelInstance}" field="name.lastName"/></span>
                 </li>
-                </g:if>
+                <li class="fieldcontain">
+                    <span id="image-label" class="property-label"><g:message code="personnel.image.label" default="Image" /></span>
+                    <span class="property-value picture" aria-labelledby="image-label">
+                    <g:if test="${personnelInstance?.image}">
+                         <g:img uri="/picture/${personnelInstance?.image.id}"/>
+                    </g:if>
+                    <g:else>
+                         <g:img uri="/images/na.jpg"/>
+                    </g:else>
+                    </span>
+                </li>
 				<g:if test="${personnelInstance?.address}">
 				<li class="fieldcontain">
 					<span id="address-label" class="property-label"><g:message code="personnel.address.label" default="Address" /></span>
@@ -52,15 +58,10 @@
                                     <g:fieldValue bean="${personnelInstance}" field="address.line1"/><br>
                                     <g:fieldValue bean="${personnelInstance}" field="address.line2"/><br>
                                     <g:fieldValue bean="${personnelInstance}" field="address.line3"/><br>
-                                    <g:message code="personnel.address.city.label" default="City" /> -
                                     <g:fieldValue bean="${personnelInstance}" field="address.city"/><br>
-                                    <g:message code="personnel.address.state.label" default="State" /> -
                                     <g:fieldValue bean="${personnelInstance}" field="address.state"/><br>
-                                    <g:message code="personnel.address.country.label" default="Country" /> -
                                     <g:fieldValue bean="${personnelInstance}" field="address.country"/><br>
-                                    <g:message code="personnel.address.zip.label" default="Zip" /> -
                                     <g:fieldValue bean="${personnelInstance}" field="address.zip"/><br>
-                                    <g:message code="personnel.address.phone.label" default="Phone" /> -
                                     <g:fieldValue bean="${personnelInstance}" field="address.phoneNumber"/><br>
                     </span>
 				</li>
@@ -101,11 +102,11 @@
 					<span class="property-value" aria-labelledby="nationalId-label"><g:fieldValue bean="${personnelInstance}" field="nationalId"/></span>
 				</li>
 				</g:if>
-				<g:if test="${personnelInstance?.office}">
+				<g:if test="${personnelInstance?.offices}">
 				<li class="fieldcontain">
 					<span id="office-label" class="property-label"><g:message code="personnel.office.label" default="Office" /></span>
-						<g:each in="${personnelInstance.office}" var="o">
-						<span class="property-value" aria-labelledby="office-label"><g:link controller="office" action="show" id="${o.id}">${o?.encodeAsHTML()}</g:link></span>
+						<g:each in="${personnelInstance.offices}" var="o">
+						<span class="property-value" aria-labelledby="office-label"><g:link controller="office" action="show" id="${o.id}">${o?.name}</g:link></span>
 						</g:each>
 				</li>
 				</g:if>
@@ -129,14 +130,14 @@
 					<span class="property-value" aria-labelledby="locale-label"><g:fieldValue bean="${personnelInstance}" field="locale"/></span>	
 				</li>
 				</g:if>
-			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${personnelInstance?.id}" />
-					<g:link class="edit" action="edit" id="${personnelInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
+           </ol>
+        <g:form>
+            <fieldset class="buttons">
+                <g:link class="edit" action="edit" id="${personnelInstance?.id}">
+                    <g:message code="default.button.edit.label" default="Edit" />
+                </g:link>
+            </fieldset>
+        </g:form>
+    </div>
 	</body>
 </html>
