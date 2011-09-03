@@ -1,0 +1,53 @@
+#login {
+	margin-top: 6%;
+	padding: 0px;
+	text-align: center;
+}
+
+#login .inner {
+	width: 300px;
+	margin: auto;
+    padding: 10px 30px 30px 30px;
+	background: #EFEFE0;
+	border-radius: 10px;
+	box-shadow: 0px 0px 1.25em #ccc;
+	border: 2px solid;
+}
+
+#login .inner .fheader {
+	padding: 4px;
+    margin: 15px 0px;
+	color: #2e3741;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#login .inner .cssform p {
+	margin: 0;
+	padding: 5px 0 8px 0;
+	padding-left: 105px;
+}
+
+#login .inner .cssform input[type='text'] {
+	width: 160px;
+}
+
+#login .inner .cssform label {
+	font-weight: bold;
+	float: left;
+	margin-left: -105px;
+	width: 100px;
+	text-align: right;
+}
+
+.login_message {
+	color: red;
+	padding: 30px;
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+
+#login .inner .text_ {
+	width: 160px;
+}

@@ -1,0 +1,82 @@
+.quickStart {
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px 2px grey;
+	height: 250px;
+	margin: 20px;
+	width: 150px;
+}
+
+.quickStart p {
+	background: green;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+	text-align: center;
+}
+
+.quickStart .clientsLinks,.quickStart .accountsLinks {
+	margin: 15px;
+	font-size: 12px;
+	display: block;
+}
+
+.quickStart .clientsLinks *,.quickStart .accountsLinks * {
+	display: inline-block;
+}
+
+.homeContent {
+	position: absolute;
+	left: 260px;
+	top: 140px;
+}
+
+.searchBox {
+	background: lightgrey;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 5px 5px 5px 5px grey;
+	padding: 10px;
+	text-align: center;
+}
+
+.searchBox input[type=search] {
+	border: 2px solid green;
+	border-radius: 5px 5px 5px 5px;
+	height: 30px;
+	width: 385px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.navBar {
+	left: 220px;
+	position: absolute;
+	top: 25px;
+}
+
+.navBar a {
+	background: lightgrey;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: 2px 5px 5px 0 grey;
+	color: black;
+	display: inline-block;
+	height: 30px;
+	margin-top: 5px;
+	padding-top: 10px;
+	text-align: center;
+	text-decoration: none;
+	width: 180px;
+}
+
+.navBar .selected {
+	background: green;
+	color: white;
+	box-shadow: 0 0 0 1px;
+	cursor: auto;
+}
+
+#topRightCorner {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
