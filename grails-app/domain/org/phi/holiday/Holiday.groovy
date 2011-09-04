@@ -24,8 +24,6 @@ import org.phi.holiday.RepaymentRuleTypes
 
 class Holiday {
 
-    Short isApplied
-
     String name
 
     RepaymentRuleTypes repaymentRule
@@ -33,5 +31,7 @@ class Holiday {
     Date endDate
 
     Date startDate
+
+    Boolean isAppliedFlag
 
 }

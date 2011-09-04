@@ -40,8 +40,8 @@ class Office {
     static hasOne = [parent: Office]
 
     static hasMany = [personnels: Personnel,
-        children: Office,
-        holidays: Holiday]
+                      children: Office,
+                      holidays: Holiday]
 
     static constraints = {
         address nullable: true
