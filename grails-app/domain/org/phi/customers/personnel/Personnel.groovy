@@ -31,7 +31,8 @@ import org.phi.security.User
 class Personnel extends User {
 
     static searchable = {
-        except: ['createdAt', 'office', 'address', 'password']
+        only = ['username', 'nationalId', 'email']
+        name component:true
     }
 
     Name name

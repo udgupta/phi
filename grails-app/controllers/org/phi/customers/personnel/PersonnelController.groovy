@@ -52,7 +52,7 @@ class PersonnelController {
         def personnelCount
         if(params.q) {
             params.max = Math.min(params.max ? params.int('max') : 10, 100)
-            personnelList = Personnel.search(params.q + "*", params).results
+            personnelList = Personnel.search(params.q +"*").searchResults
             personnelCount = personnelList.size()
         }
         render(view: "list", model: [personnelInstanceList: personnelList, personnelInstanceTotal: personnelCount])

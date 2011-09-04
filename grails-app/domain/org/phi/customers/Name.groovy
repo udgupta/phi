@@ -22,6 +22,10 @@ package org.phi.customers
 
 class Name {
 
+    static searchable = {
+        only = ['firstName', 'lastName']
+    }
+
     String firstName
 
     String middleName

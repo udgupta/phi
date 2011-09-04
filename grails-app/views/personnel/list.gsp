@@ -14,16 +14,23 @@
                 <li>
                     <g:link controller="office"> Go Back To Office List </g:link>
                 </li>
+                <g:if test="${officeInstance}">
 				<li>
                     <g:link class="create" action="create" params="[officeId:officeInstance.id]">
                         Create <g:message code="default.new.label" args="[entityName]" /> in ${officeInstance.name}
                     </g:link>
                  </li>
+                 </g:if>
                 <li><g:form action="search"><input type='search' name='q' placeholder='search personnel'/></g:form></li>
 			</ul>
 		</div>
 		<div id="list-personnel" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /> in <i>${officeInstance.name}</i></h1>
+        <g:if test="${officeInstance}">
+			<h1>
+                <g:message code="default.list.label" args="[entityName]" /> 
+                in <i>${officeInstance.name}</i>
+            </h1>
+            </g:if>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -34,12 +41,6 @@
 						<th><g:message code="personnel.name.first.label" default="First Name" /></th>
                         <th><g:message code="personnel.name.last.label" default="Last Name" /></th>
 						<th><g:message code="personnel.email.label" default="Email" /></th>
-						<th><g:message code="personnel.locale.label" default="Language" /></th>
-                        <th><g:message code="personnel.dob.label" default="Date of Birth" /></th>
-                        <th><g:message code="personnel.enabled.label" default="Enabled" /></th>
-                        <th><g:message code="personnel.accountExpired.label" default="Account Expired" /></th>
-                        <th><g:message code="personnel.accountLocked.label" default="Locked" /></th>
-                        <th><g:message code="personnel.passwordExpired.label" default="Password Expired" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -49,12 +50,6 @@
 						<td>${fieldValue(bean: personnelInstance, field: "name.firstName")}</td>
                         <td>${fieldValue(bean: personnelInstance, field: "name.lastName")}</td>
 						<td>${fieldValue(bean: personnelInstance, field: "email")}</td>
-                        <td>${fieldValue(bean: personnelInstance, field: "locale")}</td>
-                        <td>${fieldValue(bean: personnelInstance, field: "dob")}</td>    
-						<td><g:formatBoolean boolean="${personnelInstance.enabled}" /></td>
-                        <td><g:formatBoolean boolean="${personnelInstance.accountExpired}" /></td>
-                        <td><g:formatBoolean boolean="${personnelInstance.accountLocked}" /></td>
-                        <td><g:formatBoolean boolean="${personnelInstance.passwordExpired}" /></td>
 					</tr>
 				</g:each>
 				</tbody>

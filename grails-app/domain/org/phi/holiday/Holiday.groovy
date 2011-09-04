@@ -20,7 +20,7 @@
 
 package org.phi.holiday
 
-import org.phi.holiday.RepaymentRuleTypes
+import org.joda.time.LocalDate
 
 class Holiday {
 
@@ -28,9 +28,9 @@ class Holiday {
 
     RepaymentRuleTypes repaymentRule
 
-    Date endDate
+    LocalDate endDate
 
-    Date startDate
+    LocalDate startDate
 
     Boolean isAppliedFlag
 

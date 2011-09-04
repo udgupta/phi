@@ -2,4 +2,4 @@ target/
 web-app/WEB-INF/classes/
 target-eclipse/
 stacktrace.log
-
+data/
