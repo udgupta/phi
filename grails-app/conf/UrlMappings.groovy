@@ -30,7 +30,8 @@ class UrlMappings {
 		"/"(view:"/index")
 		"500"(view:'/error')
 
-        "/office/rest/$id?" (controller:"officeRest")
+        "/office/rest/$id?" (controller:"officeRest", action:"get")
+        "/office/rest/full" (controller:"officeRest", action:"fullHierarchy")
         "/picture/$id?" (controller:"image", action:"image")
 	}
 }

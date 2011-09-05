@@ -28,16 +28,22 @@ class OfficeRestController {
         if(params.id) {
             office =  Office.findById(params.id)
             for(Office childOffice : office.children.sort{a,b-> a.name.compareTo(b.name)}) {
-                officeList.add(build(childOffice))
+                officeList.add(buildLazy(childOffice))
             }
         } else {
             office = Office.get(1)
-            officeList.add(build(office))
+            officeList.add(buildLazy(office))
         }
         render officeList as grails.converters.JSON
     }
 
-    private static Map build(Office office) {
+
+    def fullHierarchy() {
+        def office = Office.get(1)
+        render buildFull(office) as grails.converters.JSON
+    }
+
+    private static Map buildLazy(Office office) {
         def map = [:]
         map.put("title", office.name +" ("+ office.level.name+")")
         map.put("key", office.id)
@@ -48,4 +54,19 @@ class OfficeRestController {
         //}
         return map
     }
+
+    private static Map buildFull(Office office) {
+        def map = [:]
+        map.put("title", office.name +" ("+ office.level.name+")")
+        map.put("key", office.id)
+        def children = []
+        for(Office child: office.children) {
+            children.add(buildFull(child))
+        }
+        if(!children.empty) {
+            map.put("children", children)
+        }
+        return map
+    }
+
 }

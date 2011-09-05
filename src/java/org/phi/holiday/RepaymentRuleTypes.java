@@ -22,38 +22,34 @@ package org.phi.holiday;
 
 
 public enum RepaymentRuleTypes {
-    SAME_DAY((short) 1, "RepaymentRule-SameDay"), //
-    NEXT_MEETING_OR_REPAYMENT((short) 2, "RepaymentRule-NextMeetingRepayment"), //
-    NEXT_WORKING_DAY((short) 3, "RepaymentRule-NextWorkingDay"), //
-    REPAYMENT_MORATORIUM((short) 4, "RepaymentRule-RepaymentMoratorium");
+    SAME_DAY(1, "Same Day"), //
+    NEXT_MEETING_OR_REPAYMENT(2, "Next Meeting Or Repayment"), //
+    NEXT_WORKING_DAY(3, "Next Working Day"), //
+    REPAYMENT_MORATORIUM(4, "Moratorium");
 
-    private Short value;
-    private String propertyKey;
+    private Integer key;
+    private String name;
 
-    RepaymentRuleTypes(final Short value, final String key) {
-        this.value = value;
-        this.propertyKey = key;
+    RepaymentRuleTypes(final Integer key, final String name) {
+        this.key = key;
+        this.name = name;
     }
 
-    public Short getValue() {
-        return value;
+    public Integer getKey() {
+        return key;
     }
 
-    public String getPropertiesKey() {
-        return propertyKey;
+    public String getName() {
+        return name;
     }
 
-    public static RepaymentRuleTypes fromShort(final Short id) {
+    public static RepaymentRuleTypes fromKey(final Integer key) {
         for (RepaymentRuleTypes adjustmentRule : values()) {
-            if (adjustmentRule.getValue().equals(id)) {
+            if (adjustmentRule.getKey().equals(key)) {
                 return adjustmentRule;
             }
         }
 
-        throw new IllegalArgumentException("No " + RepaymentRuleTypes.class.getSimpleName() + " defined for id=" + id);
-    }
-
-    public static RepaymentRuleTypes fromInt(Integer id) {
-        return fromShort(id.shortValue());
+        throw new IllegalArgumentException("No " + RepaymentRuleTypes.class.getSimpleName() + " defined for key=" + key);
     }
 }
